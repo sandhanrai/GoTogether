@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoTogether - Book a Ride</title>
+    <link href="https://fonts.cdnfonts.com/css/uber-move-text" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Uber Move Text', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            background: url('https://wedriveu.com/wp-content/uploads/2021/04/Shared-Private-Shuttles-WeDriveU.jpg') center center/cover no-repeat;
+            color: #fff;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin: 0 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            color: #000;
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #ccc;
+        }
+
+        .booking-container {
+            width: 40%;
+            height: 100vh;
+            padding: 30px;
+            background-color: black;
+            border-radius: 0 15px 15px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .booking-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .booking-container form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-align: left;
+            display: block;
+        }
+
+        .booking-container form select,
+        .booking-container form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .booking-container form button {
+            width: 100%;
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .booking-container form button:hover {
+            background-color: #ccc;
+        }
+
+        .cost-estimator {
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: #00b4d8;
+        }
+
+        footer {
+            background-color: #111;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GoTogether</div>
+        <nav>
+            <a href="{% url 'customer_dashboard' %}">Dashboard</a>
+            <button class="btn" onclick="window.location.href='{% url 'logout' %}'">Log Out</button>
+        </nav>
+    </header>
+
+    <div class="booking-container">
+        <h2>Book a Shuttle</h2>
+        <form id="booking-form" method="POST" action="{% url 'check_shuttle_availability' %}">
+            {% csrf_token %}
+            <label for="pickup">Pickup Location</label>
+            <select id="pickup" name="pickup" required>
+                <option value="" disabled selected>Select a location</option>
+                <option value="Lavasa">Lavasa</option>
+                <option value="Pune">Pune</option>
+            </select>
+
+            <label for="dropoff">Drop-off Location</label>
+            <select id="dropoff" name="dropoff" required>
+                <option value="" disabled selected>Select a location</option>
+                <option value="Lavasa">Lavasa</option>
+                <option value="Pune">Pune</option>
+            </select>
+
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="seats">Number of Seats</label>
+            <select id="seats" name="seats" required>
+                <option value="" disabled selected>Select number of seats</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+
+            <div class="cost-estimator" id="cost-estimator">Estimated Cost: ₹0</div>
+            <button type="submit">Check Availability</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 GoTogether, Inc. - <a href="#">Privacy</a> - <a href="#">Terms</a> - <a href="#">Sitemap</a></p>
+    </footer>
+<script>
+  const form = document.getElementById('booking-form');
+  const pickup = document.getElementById('pickup');
+  const dropoff = document.getElementById('dropoff');
+  const seats = document.getElementById('seats');
+  const costEstimator = document.getElementById('cost-estimator');
+
+  const baseFare = 100; 
+  const seatCost = 50;  
+
+  function updateCost() {
+    const numSeats = parseInt(seats.value) || 0;
+    if (pickup.value && dropoff.value && pickup.value !== dropoff.value) {
+      const totalCost = baseFare + seatCost * (numSeats - 1);
+      costEstimator.textContent = `Estimated Cost: ₹${totalCost}`;
+    } else {
+      costEstimator.textContent = `Estimated Cost: ₹0`;
+    }
+  }
+
+  seats.addEventListener('change', updateCost);
+  pickup.addEventListener('change', updateCost);
+  dropoff.addEventListener('change', updateCost);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (pickup.value === dropoff.value) {
+      alert('Pickup and Drop-off locations cannot be the same.');
+      return;
+    }
+
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    const data = {
+      pickup_point: pickup.value,
+      dropoff_point: dropoff.value,
+      scheduled_time: document.getElementById('date').value,
+      seats: seats.value
+    };
+
+    console.log(data); // Log the data being sent
+
+    fetch('/check_availability/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken  // Ensure CSRF token is included
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.available) {
+        alert('Shuttles are available!');
+      } else {
+        alert('No shuttles available at this time.');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  });
+</script>
+</body>
+</html>

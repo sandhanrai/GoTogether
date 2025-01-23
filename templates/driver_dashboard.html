@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoTogether - Driver Dashboard</title>
+  <link href="https://fonts.cdnfonts.com/css/uber-move-text" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Uber Move Text', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    nav a {
+      text-decoration: none;
+      margin: 0 10px;
+      color: black;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: gray;
+    }
+
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+      background-color: #f4f4f9;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #111;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .sidebar a:hover {
+      background-color: gray;
+    }
+
+    .sidebar a.active {
+      background-color: gray;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .main-content h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .rides-section {
+      margin-bottom: 20px;
+    }
+
+    .rides-section h2 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .rides-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .rides-list li {
+      background-color: white;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      background-color: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid #333;
+    }
+
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GoTogether</div>
+    <nav>
+      <a href="/home/sandhanrai/Full Stack/Shared Shuttle/index.html">Home</a>
+      <a href="logout.html">Logout</a>
+    </nav>
+  </header>
+
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <h2>Dashboard</h2>
+      <a href="#notifications">Notifications</a>
+      <a href="#upcoming-rides">Upcoming Rides</a>
+      <a href="#past-rides">Past Rides</a>
+      <a href="#live-tracking">Live Tracking</a>
+      <a href="#profile">Profile</a>
+      <a href="#emergency-support">Emergency & Support</a>
+    </aside>
+
+    <main class="main-content">
+      <h1>Welcome, [Driver Name]!</h1>
+
+      <div class="rides-section" id="notifications">
+        <h2>Notifications</h2>
+        <p>No new notifications at the moment.</p>
+      </div>
+
+      <div class="rides-section" id="upcoming-rides">
+        <h2>Upcoming Rides</h2>
+        <ul class="rides-list">
+          <li>
+            <span><strong>Pickup:</strong> Location A</span>
+            <span><strong>Drop-off:</strong> Location B</span>
+            <span><strong>Date & Time:</strong> 2025-01-20 10:00 AM</span>
+            <span><strong>Status:</strong> Confirmed</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rides-section" id="past-rides">
+        <h2>Past Rides</h2>
+        <ul class="rides-list">
+          <li>
+            <span><strong>Pickup:</strong> Location A</span>
+            <span><strong>Drop-off:</strong> Location B</span>
+            <span><strong>Date & Time:</strong> 2025-01-15 8:00 AM</span>
+            <span><strong>Status:</strong> Completed</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rides-section" id="live-tracking">
+        <h2>Live Tracking</h2>
+        <p>
+          <a href="tracking.html">Track your shuttle</a>
+        </p>
+      </div>
+
+      <div class="rides-section" id="emergency-support">
+        <h2>Emergency & Support</h2>
+        <p><strong>SOS:</strong> <a href="emergency.html">Click here for emergency support</a></p>
+        <p><strong>Customer Support:</strong> Call us at <a href="tel:+1234567890">+1 234 567 890</a></p>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 GoTogether. All rights reserved.</p>
+    <a href="#">Privacy</a> - <a href="#">Terms</a>
+  </footer>
+</body>
+</html>

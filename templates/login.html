@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoTogether - Login</title>
+  <link href="https://fonts.cdnfonts.com/css/uber-move-text" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Uber Move Text', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    .container {
+      width: 40%;
+      height: 100vh;
+      padding: 30px;
+      background-color: black;
+      border-radius: 0 15px 15px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      color: #fff;
+    }
+
+    form label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      display: block;
+      color: #fff;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+      background-color: #fff;
+      color: #000;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #fff;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      background-color: #ccc;
+    }
+
+    .alert {
+      color: red;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GoTogether</div>
+    <nav>
+      <button class="btn" onclick="window.location.href='/users/signup/'">Sign Up</button>
+    </nav>
+  </header>
+
+  <div class="main-container">
+    <div class="container">
+      <h1>Login</h1>
+      {% if messages %}
+        <div class="alert">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <form method="POST" action="{% url 'login' %}" id="login-form" novalidate>
+        {% csrf_token %}
+        
+        <label for="identifier">Email or Phone Number</label>
+        <input type="text" id="identifier" name="identifier" placeholder="Email or Phone Number" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+        <button type="submit" class="btn">Log In</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

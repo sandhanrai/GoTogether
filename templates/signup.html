@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoTogether - Sign Up</title>
+  <link href="https://fonts.cdnfonts.com/css/uber-move-text" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Uber Move Text', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+    .container {
+      width: 40%;
+      height: 100vh;
+      padding: 30px;
+      background-color: black;
+      border-radius: 0 15px 15px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .background {
+      flex-grow: 1;
+      background: url('https://img.freepik.com/premium-photo/airport-shuttle-bus-transporting-passengers-from-terminal-aircraft_693425-34304.jpg') 
+        center center/cover no-repeat;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      color: #fff;
+    }
+
+    form label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      display: block;
+      color: #fff;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+      background-color: #fff;
+      color: #000;
+    }
+
+    input[type="file"] {
+      padding: 3px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #fff;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      background-color: #ccc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .alert {
+      color: red;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: 100%;
+        border-radius: 0;
+      }
+
+      .background {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GoTogether</div>
+    <nav>
+      <button class="btn" onclick="window.location.href='/users/login/'">Log In</button>
+    </nav>
+  </header>
+
+  <div class="main-container">
+    <div class="container">
+      <h1>Sign Up</h1>
+      {% if messages %}
+        <div class="alert">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <form method="POST" action="{% url 'register' %}" id="signup-form" novalidate>
+        {% csrf_token %}
+        
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+
+        <label for="user-type">Sign up as:</label>
+        <select id="user-type" name="user-type" required>
+          <option value="" disabled selected>Select</option>
+          <option value="customer">Customer</option>
+          <option value="driver">Driver</option>
+        </select>
+
+        <div id="driver-fields" class="hidden">
+          <label for="license">Driving License Number</label>
+          <input type="text" id="license" placeholder="Driving License Number">
+          <label for="has-vehicle">Do you have a vehicle?</label>
+          <select id="has-vehicle" name="has-vehicle">
+            <option value="" disabled selected>Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+          <div id="vehicle-fields" class="hidden">
+            <label for="vehicle-number">Vehicle Number</label>
+            <input type="text" id="vehicle-number" placeholder="Vehicle Number">
+          </div>
+        </div>
+
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" name="first_name" placeholder="First Name" required>
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" name="last_name" placeholder="Last Name" required>
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone_number" placeholder="Phone Number" required>
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="example.email@gmail.com" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter at least 8+ characters" required minlength="8">
+
+        <label>
+          <input type="checkbox" required> I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+        </label>
+
+        <button type="submit" class="btn">Register</button>
+      </form>
+    </div>
+    <div class="background"></div>
+  </div>
+  <script>
+    const userType = document.getElementById('user-type');
+    const driverFields = document.getElementById('driver-fields');
+    const hasVehicle = document.getElementById('has-vehicle');
+    const vehicleFields = document.getElementById('vehicle-fields');
+
+    // Show/Hide driver fields based on user type
+    userType.addEventListener('change', () => {
+      if (userType.value === 'driver') {
+        driverFields.classList.remove('hidden');
+      } else {
+        driverFields.classList.add('hidden');
+        resetDriverFields();
+      }
+    });
+
+    // Show/Hide vehicle fields based on "has vehicle" selection
+    hasVehicle.addEventListener('change', () => {
+      if (hasVehicle.value === 'yes') {
+        vehicleFields.classList.remove('hidden');
+      } else {
+        vehicleFields.classList.add('hidden');
+        document.getElementById('vehicle-number').value = '';
+      }
+    });
+
+    // Reset driver-specific fields when switching to customer
+    function resetDriverFields() {
+      document.getElementById('license').value = '';
+      hasVehicle.value = '';
+      vehicleFields.classList.add('hidden');
+      document.getElementById('vehicle-number').value = '';
+    }
+  </script>
+</body>
+</html>

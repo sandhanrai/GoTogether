@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoTogether</title>
+  <link href="https://fonts.cdnfonts.com/css/uber-move-text" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Uber Move Text', sans-serif;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+    }
+    nav a {
+      text-decoration: none;
+      margin: 0 10px;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a.selected {
+      font-weight: bold;
+      border-bottom: 2px solid gray;
+      padding-bottom: 5px;
+    }
+    nav a:hover {
+      color: gray;
+    }
+    .btn {
+      padding: 10px 15px;
+      color: white;
+      background-color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: center;
+      transition: background-color 0.3s ease-in-out;
+    }
+    .btn:hover {
+      background-color: gray;
+    }
+    .hero {
+      background: url('https://wedriveu.com/wp-content/uploads/2021/04/Shared-Private-Shuttles-WeDriveU.jpg') center center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+      flex: 1;
+    }
+
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .newsletter {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .newsletter input[type='email'] {
+      padding: 10px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    .newsletter input[type='email']:focus {
+      outline: 2px solid #007bff;
+    }
+    footer {
+      background-color: #111;
+      color: white;
+      padding: 20px 10px;
+      text-align: center;
+      border-top: 1px solid #333;
+      font-size: 14px;
+    }
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 5px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer .social-icons a {
+      margin: 0 5px;
+      color: #ccc;
+      transition: color 0.3s;
+    }
+    footer .social-icons a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GoTogether</div>
+    <nav>
+      <a href="#" class="selected">Home</a>
+      <a href="Aboutus.html">About Us</a>
+      <a href="#">Contact Us</a>
+      <button class="btn" onclick="window.location.href='{% url 'login' %}'">Log In</button>
+      <button class="btn" onclick="window.location.href='{% url 'register' %}'" style="margin-left: 10px;">Sign Up</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>GoTogether: Affordable Shared Rides Between Lavasa and Pune</h1>
+    <p>Convenient, Cost-Effective and Eco-Friendly Travel</p>
+    <button class="btn" onclick="window.location.href='{% url 'login' %}'">Book a Ride</button>
+  </section>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://x.com/">Twitter</a>
+      <a href="https://www.linkedin.com/">Instagram</a>
+      <br><br>
+      <p>Subscribe to our newsletter</p>
+      <input type="email" placeholder="Input your email">
+      <button class="btn">Subscribe</button>
+      <br><br>
+      <p>&copy; 2024 GoTogether, Inc.</p> 
+      <a href="#">Privacy</a> - <a href="#">Terms</a> - <a href="#">Sitemap</a>
+    </div>
+  </footer>
+</body>
+</html>

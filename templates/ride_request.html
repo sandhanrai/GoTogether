@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Ride</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Request a Ride</h1>
+    <form id="availabilityForm">
+        <label for="pickup_point">Pickup Point:</label>
+        <input type="text" id="pickup_point" name="pickup_point" required>
+        <br>
+        <label for="dropoff_point">Dropoff Point:</label>
+        <input type="text" id="dropoff_point" name="dropoff_point" required>
+        <br>
+        <label for="scheduled_time">Scheduled Time:</label>
+        <input type="datetime-local" id="scheduled_time" name="scheduled_time" required>
+        <br>
+        <button type="submit">Check Availability</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#availabilityForm').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/users/check_availability/',  // Updated URL
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#result').html(response.message);
+                    },
+                    error: function() {
+                        $('#result').html('An error occurred while checking availability.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
